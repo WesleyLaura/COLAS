@@ -15,7 +15,7 @@ class Cola{
 		void insertarCola(string dato);
 		string eliminarCola();
 		string verFrente();
-		void mostraCola();
+		void mostrarCola();
 		int contarElementos();
 		bool buscarElemento(string dato);
 			
@@ -79,6 +79,28 @@ string Cola::eliminarCola(){
 	return dato;
 }
 
+//mostrar todo los elementos de la cola
+void Cola::mostrarCola(){
+	if(colaVacia()){
+		cout<<"COLA VACIA\n";
+	}else{
+		for(int i=frente;i<=final;i++){
+			cout<<elementos[i]<<" ";
+		}
+		cout<<"\n";
+	}
+}
+
+//ver frente de la cola (muestra el primer elemento de la cola)
+string Cola::verFrente(){
+	if(colaVacia()){
+		cout<<"Cola vacia\n";
+		return NULL;
+	}else{
+		return elementos[frente];
+	}
+}
+
 void menu(){
 	Cola cola1;
 	string dato;
@@ -102,13 +124,17 @@ void menu(){
 					cola1.insertarCola(dato);
 					break;
 				case 2:
-					cola1.eliminarCola();
+					dato=cola1.eliminarCola();
+					if(dato !="")
+					cout<<"Elemento eliminado "<<dato<<endl;
 					break;
 				case 3:
-					//
+					dato=cola1.verFrente();
+					if(dato !="")
+					cout<<"Elemento en el frente "<<dato<<endl;
 					break;
 				case 4:
-					//mostrar
+					cola1.mostrarCola();
 					break;
 				case 5:
 					//contar
