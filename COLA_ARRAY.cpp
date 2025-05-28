@@ -100,7 +100,26 @@ string Cola::verFrente(){
 		return elementos[frente];
 	}
 }
+//contar los elementos de la cola
+int Cola::contarElementos(){
+		return final- frente +1;
+}
 
+//busca un elemento en la cola
+bool Cola::buscarElemento(string dato){
+	if(!colaVacia()){
+		int i=frente;
+		while(i<=final){
+			if(elementos[i]==dato){
+				return true;
+			}else{
+				i++;
+			}
+		}
+	
+	}
+				return false;	
+}
 void menu(){
 	Cola cola1;
 	string dato;
@@ -113,6 +132,7 @@ void menu(){
 			<<"3.- Ver frente"<<endl
 			<<"4.- Mostrar COLA"<<endl
 			<<"5.- Contar elementos"<<endl
+			<<"6.- Buscar elemento en la Cola"<<endl
 			<<"0.- SALIR"<<endl;
 		cout<<"Seleccione una opcion: "; cin>>op;
 			cin.ignore();
@@ -137,8 +157,13 @@ void menu(){
 					cola1.mostrarCola();
 					break;
 				case 5:
-					//contar
+					cout<<" Total de elementos en la cola: "<<cola1.contarElementos()<<endl;
 					break;
+				case 6:
+					cout<<"Ingrese el dato a buscar en la cola: ";
+					getline(cin,dato);
+					cout<<"Esta "<<dato<<" ?: "<<(cola1.buscarElemento(dato) ? "SI":"NO")<<endl;
+					break;	
 				case 0:
 					cout<<"Finalizar programa...\n";
 					break;
