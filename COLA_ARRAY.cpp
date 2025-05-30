@@ -56,7 +56,7 @@ void Cola::insertarCola(string dato){
 			final++;
 		}
 		elementos[final]=dato;
-		cout<<"Agregado correctamente a la COLA\n";
+		cout<<"\nAgregado correctamente a la COLA\n";
 	}else{
 		cout<<"Desbordamiento - Cola esta llena\n";
 		return;
@@ -94,8 +94,8 @@ void Cola::mostrarCola(){
 //ver frente de la cola (muestra el primer elemento de la cola)
 string Cola::verFrente(){
 	if(colaVacia()){
-		cout<<"Cola vacia\n";
-		return NULL;
+		return "Cola vacia\n";
+	
 	}else{
 		return elementos[frente];
 	}
@@ -126,6 +126,7 @@ void menu(){
 	int op;
 	
 	do{
+		system("cls");
 		cout<<"\t---MENU DE COLA-----"<<endl
 			<<"1.- Insertar elemento en la cola"<<endl
 			<<"2.- Eliminar elemento en la cola"<<endl
@@ -135,34 +136,46 @@ void menu(){
 			<<"6.- Buscar elemento en la Cola"<<endl
 			<<"0.- SALIR"<<endl;
 		cout<<"Seleccione una opcion: "; cin>>op;
-			cin.ignore();
+			cin.ignore(); // para limpiar el bufer
 			switch(op){
 				
 				case 1:
+					system("cls");
 					cout<<"Ingrese el dato que desea ingresar: ";
 					getline(cin,dato);
 					cola1.insertarCola(dato);
+					system("pause");
 					break;
 				case 2:
+					system("cls");
 					dato=cola1.eliminarCola();
 					if(dato !="")
 					cout<<"Elemento eliminado "<<dato<<endl;
+					system("pause");
 					break;
 				case 3:
+					system("cls");
 					dato=cola1.verFrente();
 					if(dato !="")
-					cout<<"Elemento en el frente "<<dato<<endl;
+					cout<<"Elemento en el frente: "<<dato<<endl;
+					system("pause");
 					break;
 				case 4:
+					system("cls");
 					cola1.mostrarCola();
+					system("pause");
 					break;
 				case 5:
+					system("cls");
 					cout<<" Total de elementos en la cola: "<<cola1.contarElementos()<<endl;
+					system("pause");
 					break;
 				case 6:
+					system("cls");
 					cout<<"Ingrese el dato a buscar en la cola: ";
 					getline(cin,dato);
 					cout<<"Esta "<<dato<<" ?: "<<(cola1.buscarElemento(dato) ? "SI":"NO")<<endl;
+					system("pause");
 					break;	
 				case 0:
 					cout<<"Finalizar programa...\n";
