@@ -18,8 +18,70 @@ class Cola{
 		void mostrarCola();
 		int contarElementos();
 		bool buscarElemento(string dato);
+		void invertirCola();
+		void eliminarElementoCola(string dato);
 			
 };
+
+class Pila{
+	private:
+		string elementos[MAX];
+		int tope;
+	public:
+		Pila();
+		
+		void insertarPila(string dato);
+		string sacarPila();
+		bool pilaLlena();
+		bool pilaVacia();
+			
+};
+
+// constructor de la Pila
+Pila::Pila(){
+	tope=-1;
+}
+//pila Llena
+bool Pila::pilaLlena(){
+	if(tope==MAX-1){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//pila vacia
+bool Pila::pilaVacia(){
+	if(tope==-1){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//insertar elemento en la Pila
+void Pila::insertarPila(string dato){
+	if(!pilaLlena()){
+		tope++;
+		elementos[tope]=dato;
+	}else{
+		cout<<"COLA LLENA\n";
+		return;
+	}
+}
+
+//metodo para sacar elemento de la pila
+
+string Pila::sacarPila(){
+	if(pilaVacia()){
+		cout<<"PILA VACIA\n";
+		return(0);
+	}else{
+		string dato=elementos[tope];
+		tope--;
+		return dato;
+	}
+}
 
 //constructor : Inicializa la cola vacia
 Cola::Cola(){
@@ -120,9 +182,53 @@ bool Cola::buscarElemento(string dato){
 	}
 				return false;	
 }
+
+//funcion para invertir Cola
+void Cola::invertirCola(){
+	Pila pila1;
+	if(colaVacia()){
+		cout<<"COLA VACIA\n";
+	}else{
+		while(!colaVacia()){
+		string info=eliminarCola();
+		pila1.insertarPila(info);	
+		}
+		while(!pila1.pilaVacia()){
+			string info1=pila1.sacarPila();
+			insertarCola(info1);
+		}
+	}
+	cout<<"\n--COLA INVERTIDO CORRECTAMENTE--\n";
+}
+
+//funcion para eleminar un dato en particular en una cola
+void Cola::eliminarElementoCola(string dato){
+	Cola cola1;
+	if(buscarElemento(dato)){
+		int cantidad=final-frente+1;
+		int i=0;
+		while(i<cantidad){
+				string dato1=eliminarCola();
+			if(dato1!=dato){
+				cola1.insertarCola(dato1);
+			}
+			i++;
+		}
+			while(!cola1.colaVacia()){
+			string dato2=cola1.eliminarCola();
+			insertarCola(dato2);
+					
+			}
+		
+		cout<<"\nELEMENTO "<<dato<<" ELIMINADO CORRECTAMENTE\n";
+	}else{
+		cout<<"Dato elimnar no encontrado en la COLA\n";
+	}	
+}
+
 void menu(){
 	Cola cola1;
-	string dato;
+	string dato, elemento;
 	int op;
 	
 	do{
@@ -134,6 +240,8 @@ void menu(){
 			<<"4.- Mostrar COLA"<<endl
 			<<"5.- Contar elementos"<<endl
 			<<"6.- Buscar elemento en la Cola"<<endl
+			<<"7.- Invertir Cola"<<endl
+			<<"8.- Eliminar elemento de la Cola"<<endl
 			<<"0.- SALIR"<<endl;
 		cout<<"Seleccione una opcion: "; cin>>op;
 			cin.ignore(); // para limpiar el bufer
@@ -176,7 +284,19 @@ void menu(){
 					getline(cin,dato);
 					cout<<"Esta "<<dato<<" ?: "<<(cola1.buscarElemento(dato) ? "SI":"NO")<<endl;
 					system("pause");
-					break;	
+					break;
+				case 7:
+					system("cls");
+					cola1.invertirCola();
+					system("pause");
+					break;
+				case 8:
+					system("cls");
+					cout<<"Ingrese el elemento que desea eliminar de la COLA: ";
+					getline(cin,elemento);
+					cola1.eliminarElementoCola(elemento);
+					system("pause");
+					break;					
 				case 0:
 					cout<<"Finalizar programa...\n";
 					break;
