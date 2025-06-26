@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#define MAX 10  // tamanio maximoi de la cola
+#define MAX 5  // tamanio maximo de la cola
 using namespace std;
 class ColaCircular{
 	private:
@@ -28,11 +28,12 @@ ColaCircular::ColaCircular(){
 
 // verifica si la cola circular esta llena
 bool ColaCircular::colaCirLlena(){
-	if((final==frente + 1) || (frente==1 && final==MAX-1)){
+	/*if((final==frente + 1) || (frente==1 && final==MAX-1)){
 		return true;
 	}else{
 		return false;
-	}
+	}*/
+	 return ( (final + 1) % MAX == frente );
 }
 
 //verifica si la cola circular esta vacia
@@ -51,13 +52,10 @@ void ColaCircular::insertaCircular(string dato){
 		if(colaCirVacia()){
 			frente=0;
 			final=0;
+		}else{
+			final=(final+1) % MAX;
 		}
 		
-		if(final==MAX-1){
-			final=0;
-		}else{
-			final++;
-		}
 		elementos[final]=dato;
 	}else{
 		cout<<"COLA LLENA\n";
@@ -77,11 +75,7 @@ string ColaCircular::eliminarCircular(){
 			frente=-1;
 			final=-1;
 		}else{
-			if(frente==MAX-1){
-				frente=1;
-			}else{
-				frente++;
-			}
+			frente=(frente + 1) % MAX;
 		}
 	return dato;
 	}
@@ -90,20 +84,21 @@ string ColaCircular::eliminarCircular(){
 
 //mostrar todo los elementos de la cola circular
 void ColaCircular::mostrarCircular() {
-    if (colaCirVacia()) {
-        cout << "COLA VACIA\n";
-    } else {
-        cout << "Elementos de la cola: ";
-        int i = frente;
-        while (true) {
-            cout << elementos[i] << " ";
-            if (i == final)
-                break;
-            i = (i + 1) % MAX;  // avanzar de forma circular
-        }
-        cout << "\n";
-    }
+	if(colaCirVacia()){
+		cout<<"COLA VACIA\n";
+		return;
+	}else{
+		
+	  int i=frente;
+	  while(true){
+	  	cout<<elementos[i]<<" ";
+	  	if(i==final) break;
+	  	i=(i+1) % MAX;
+	  }
+	}
+  cout<<"\n";
 }
+
 
 
 void menu(){
